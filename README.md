@@ -64,8 +64,8 @@ You can verify all of this yourself. The entire application is open source, and 
 Deploy to Vercel, Netlify, or any static hosting service. It is a static site — there is no server to configure, no database to provision, no environment variables to set.
 ### Self-Host
 ```bash
-git clone https://github.com/your-username/daily-check.git
-cd daily-check
+git clone https://github.com/your-username/get-stuff-done.git
+cd get-stuff-done
 npm install
 npm run build
 ```

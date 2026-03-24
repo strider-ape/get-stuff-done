@@ -1,4 +1,4 @@
-const CACHE_NAME = 'daily-check-v1';
+const CACHE_NAME = 'get-stuff-done-v1';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
