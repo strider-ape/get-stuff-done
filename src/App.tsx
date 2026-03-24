@@ -13,7 +13,7 @@ interface AppData {
 }
 
 // ─── Constants ───────────────────────────────────────────────────────────
-const STORAGE_KEY = "daily-check-v2";
+const STORAGE_KEY = "get-stuff-done-v2";
 
 // ─── Utilities ───────────────────────────────────────────────────────────
 function getToday(): string {
@@ -169,18 +169,20 @@ export default function App() {
     },
     logo: {
       fontSize: "1.5rem",
-      fontWeight: "bold",
+      fontWeight: 700,
       marginBottom: "0.25rem",
     },
     date: {
       fontSize: "0.875rem",
-      opacity: 0.8,
+      fontWeight: 600,
+      opacity: 0.9,
     },
     progressSection: {
       marginBottom: "2rem",
     },
     progressLabel: {
       fontSize: "0.875rem",
+      fontWeight: 600,
       marginBottom: "0.75rem",
       display: "flex",
       justifyContent: "space-between",
@@ -197,8 +199,9 @@ export default function App() {
       width: `${progress}%`,
     },
     clearBtn: {
-      fontSize: "0.75rem",
-      padding: "4px 12px",
+      fontSize: "0.8rem",
+      fontWeight: 600,
+      padding: "6px 14px",
       marginTop: "0.5rem",
     },
     addTaskForm: {
@@ -209,10 +212,12 @@ export default function App() {
     input: {
       flex: 1,
       padding: "10px 14px",
+      fontWeight: 600,
     },
     addBtn: {
       padding: "10px 18px",
-      fontSize: "1rem",
+      fontSize: "1.1rem",
+      fontWeight: 700,
       border: "1px solid var(--accent)",
       color: "var(--accent)",
       background: "transparent",
@@ -224,11 +229,13 @@ export default function App() {
     },
     emptyTitle: {
       fontSize: "1rem",
+      fontWeight: 600,
       marginBottom: "0.5rem",
     },
     emptySubtitle: {
-      fontSize: "0.75rem",
-      opacity: 0.85,
+      fontSize: "0.875rem",
+      fontWeight: 500,
+      opacity: 0.9,
       maxWidth: "280px",
       margin: "0 auto",
       lineHeight: 1.5,
@@ -246,27 +253,31 @@ export default function App() {
       borderBottom: "1px solid var(--border)",
     },
     checkbox: {
-      width: "18px",
-      height: "18px",
-      border: "1px solid var(--text)",
+      width: "20px",
+      height: "20px",
+      border: "2px solid var(--text)",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       cursor: "pointer",
       flexShrink: 0,
-      fontSize: "0.75rem",
+      fontSize: "0.85rem",
+      fontWeight: 700,
     },
     taskText: {
       flex: 1,
-      fontSize: "0.875rem",
+      fontSize: "0.95rem",
+      fontWeight: 600,
       cursor: "pointer",
     },
     deleteBtn: {
       background: "transparent",
       border: "none",
       color: "var(--text)",
-      opacity: 0.7,
-      fontSize: "0.75rem",      cursor: "pointer",
+      opacity: 0.9,
+      fontSize: "0.8rem",
+      fontWeight: 600,
+      cursor: "pointer",
       padding: "4px 8px",
     },
     footer: {
@@ -274,7 +285,8 @@ export default function App() {
       paddingTop: "3rem",
       textAlign: "center" as const,
       fontSize: "0.875rem",
-      opacity: 0.8,
+      fontWeight: 600,
+      opacity: 0.9,
     },
   };
 
@@ -284,7 +296,7 @@ export default function App() {
       <div style={styles.content}>
         {/* Header */}
         <header style={styles.header}>
-          <h1 style={styles.logo}>daily</h1>
+          <h1 style={styles.logo}>get stuff done!</h1>
           <p style={styles.date}>{dateStr}</p>
         </header>
 
@@ -344,7 +356,7 @@ export default function App() {
         {/* Empty State */}
         {totalCount === 0 && (
           <div style={styles.emptyState}>
-            <p style={styles.emptyTitle}>your daily slate is clean</p>
+            <p style={styles.emptyTitle}>your slate is clean</p>
             <p style={styles.emptySubtitle}>
               add your recurring tasks — they'll stay in your list and reset
               every midnight
@@ -399,7 +411,7 @@ export default function App() {
           <div style={{ marginTop: "1.5rem", textAlign: "center" as const }}>
             <button
               onClick={clearCompleted}
-              style={{ border: "1px solid var(--accent)", background: "transparent", color: "var(--accent)", padding: "8px 20px", cursor: "pointer", fontSize: "0.75rem" } as React.CSSProperties}
+              style={{ border: "1px solid var(--accent)", background: "transparent", color: "var(--accent)", padding: "10px 24px", cursor: "pointer", fontSize: "0.85rem", fontWeight: 600 } as React.CSSProperties}
             >
               clear & start fresh
             </button>
