@@ -1,50 +1,107 @@
 @import "tailwindcss";
 
+/* ─── Design System ────────────────────────────────────────────────
+  Background:   #2d2b27 (very dark warm-tinted gray)
+  Text:         #c4b89a (desaturated warm beige/tan)
+  Accent:       #e8833a (burnt orange)
+  Border:       #5a5650 (muted, same as or lighter than bg)
+  Font:         Monospace only (Courier New, IBM Plex Mono, JetBrains Mono, Space Mono)
+*/
+
+:root {
+  --bg: #2d2b27;
+  --text: #ebe3d0;
+  --accent: #e8833a;
+  --border: #5a5650;
+}
+
 * {
   -webkit-tap-highlight-color: transparent;
 }
 
+html {
+  background-color: var(--bg);
+}
+
 body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Courier New', 'IBM Plex Mono', 'JetBrains Mono', 'Space Mono', monospace;
+  font-weight: 500;
+  letter-spacing: 0.05em;
   overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  min-height: 100vh;
 }
 
-@keyframes checkBounce {
-  0% { transform: scale(0.85); }
-  40% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+#root {
+  min-height: 100vh;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ─── No animations at all (rule: at most 100ms color swap) ──────── */
+
+/* ─── Utility classes for buttons ───────────────────────────────── */
+.btn {
+  border: 1px solid var(--text);
+  background: transparent;
+  color: var(--text);
+  padding: 8px 20px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 100ms, color 100ms;
+  border-radius: 0;
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+.btn:hover {
+  background: var(--text);
+  color: var(--bg);
 }
 
-@keyframes celebratePulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
+.btn-accent {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
-@utility animate-check {
-  animation: checkBounce 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+.btn-accent:hover {
+  background: var(--accent);
+  color: var(--bg);
 }
 
-@utility animate-fade-in {
-  animation: fadeInUp 0.35s ease-out both;
+/* ─── Input styling ──────────────────────────────────────────────── */
+input[type="text"] {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border-radius: 0;
+  outline: none;
 }
 
-@utility animate-celebrate {
-  animation: celebratePulse 2s ease-in-out infinite;
+input[type="text"]::placeholder {
+  color: var(--border);
+}
+
+input[type="text"]:focus {
+  border-color: var(--accent);
+}
+
+/* ─── Remove all default button styling ─────────────────────────── */
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ─── Selection ────────────────────────────────────────────────── */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
 }
