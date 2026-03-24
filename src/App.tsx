@@ -101,7 +101,7 @@ export default function App() {
   const addTask = useCallback(() => {
     const text = newTask.trim();
     if (!text) return;
-    setTasks((prev) => [...prev, { id: generateId(), text, done: false }]);
+    setTasks((prev) => [{ id: generateId(), text, done: false }, ...prev]);
     setNewTask("");
     setTimeout(() => inputRef.current?.focus(), 50);
   }, [newTask]);
