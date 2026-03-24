@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -64,6 +64,7 @@ if ("serviceWorker" in navigator) {
 export default function App() {
   const [tasks, setTasks] = useState<Task[]>(loadTasks);
   const [newTask, setNewTask] = useState("");
+  const [recentlyCompleted, setRecentlyCompleted] = useState<Set<string>>(new Set());
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Persist to localStorage on every change
@@ -110,6 +111,22 @@ export default function App() {
     setTasks((prev) =>
       prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
     );
+
+    // Add to recently completed for 800ms delay
+    setRecentlyCompleted((prev) => {
+      const newSet = new Set(prev);
+      newSet.add(id);
+      return newSet;
+    });
+
+    // Remove after 800ms to trigger the sort
+    setTimeout(() => {
+      setRecentlyCompleted((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(id);
+        return newSet;
+      });
+    }, 800);
   }, []);
 
   const deleteTask = useCallback((id: string) => {
@@ -130,6 +147,17 @@ export default function App() {
     month: "long",
     day: "numeric",
   });
+
+  const sortedTasks = useMemo(() => {
+    return [...tasks].sort((a, b) => {
+      // Treat a task as 'done' for sorting ONLY if it's done AND the delay has passed
+      const aIsSortedAsDone = a.done && !recentlyCompleted.has(a.id);
+      const bIsSortedAsDone = b.done && !recentlyCompleted.has(b.id);
+
+      if (aIsSortedAsDone === bIsSortedAsDone) return 0;
+      return aIsSortedAsDone ? 1 : -1;
+    });
+  }, [tasks, recentlyCompleted]);
 
   // ─── Render ─────────────────────────────────────────────────────────
   return (
@@ -187,7 +215,7 @@ export default function App() {
 
       {/* Task list */}
       <div className="task-list" id="task-list">
-        {tasks.map((task) => (
+        {sortedTasks.map((task) => (
           <div
             key={task.id}
             className={twMerge("task-item", task.done && "done")}
@@ -202,7 +230,7 @@ export default function App() {
               className="task-label"
               onClick={() => toggleTask(task.id)}
             >
-              {task.text}
+              <span className="task-text">{task.text}</span>
             </label>
             <button
               className="del-btn"

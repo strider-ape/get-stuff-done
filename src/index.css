@@ -267,8 +267,28 @@ button {
 
 .task-item.done .task-label {
   color: var(--done-text);
-  text-decoration: line-through;
-  text-decoration-color: var(--done-text);
+  text-decoration: none;
+}
+
+.task-item.done .task-text {
+  position: relative;
+  display: inline-block;
+}
+
+.task-item.done .task-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 2px;
+  background-color: var(--done-text);
+  width: 100%;
+  animation: strikethrough 0.3s ease-out forwards;
+}
+
+@keyframes strikethrough {
+  from { width: 0; }
+  to { width: 100%; }
 }
 
 /* Checkbox */
