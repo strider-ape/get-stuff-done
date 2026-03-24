@@ -23,6 +23,13 @@ function todayStr() {
   return new Date().toDateString();
 }
 
+function msUntilMidnight(): number {
+  const now = new Date();
+  const midnight = new Date(now);
+  midnight.setHours(24, 0, 0, 0);
+  return midnight.getTime() - now.getTime();
+}
+
 function generateId(): string {
   return Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
 }
@@ -64,17 +71,19 @@ export default function App() {
     saveTasks(tasks);
   }, [tasks]);
 
-  // Midnight reset check (every 30s)
+  // Midnight reset check
   useEffect(() => {
-    const interval = setInterval(() => {
+    const checkMidnight = () => {
       const saved = localStorage.getItem(DATE_KEY);
       if (saved !== todayStr()) {
         setTasks([]);
         localStorage.removeItem(STORAGE_KEY);
         localStorage.setItem(DATE_KEY, todayStr());
       }
-    }, 30000);
-    return () => clearInterval(interval);
+      setTimeout(checkMidnight, msUntilMidnight());
+    };
+    setTimeout(checkMidnight, msUntilMidnight());
+    return () => {};
   }, []);
 
   // Sync across tabs
