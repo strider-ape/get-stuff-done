@@ -127,7 +127,7 @@ export default function App() {
     <div className="app">
       {/* Header */}
       <header className="header">
-        <h1>daily</h1>
+        <h1>get stuff done!</h1>
         <p className="date">{dateStr}</p>
       </header>
 
