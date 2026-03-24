@@ -241,8 +241,8 @@ export default function App() {
     taskItem: {
       display: "flex",
       alignItems: "center",
-      gap: "0.75rem",
-      padding: "0.75rem 0",
+      gap: "1rem",
+      padding: "1rem 0",
       borderBottom: "1px solid var(--border)",
     },
     checkbox: {
