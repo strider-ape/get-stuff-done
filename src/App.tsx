@@ -160,20 +160,23 @@ export default function App() {
   }, [tasks, recentlyCompleted]);
 
   // ─── Render ─────────────────────────────────────────────────────────
+  // Include recently completed in active section so checked items stay at top during animation
+  const activeTasks = sortedTasks.filter(t => !t.done || recentlyCompleted.has(t.id));
+  const completedTasks = sortedTasks.filter(t => t.done && !recentlyCompleted.has(t.id));
+
   return (
     <div className="app">
       {/* Header */}
       <header className="header">
-        <h1>get stuff done!</h1>
-        <p className="date">{dateStr}</p>
+        <div className="header-left">
+          <h1>get stuff done!</h1>
+          <p className="date">{dateStr}</p>
+        </div>
+        <span className="progress-pct">{progress}%</span>
       </header>
 
       {/* Progress */}
       <div className="progress-section">
-        <div className="progress-meta">
-          <span id="progress-text">{doneCount} of {totalCount} completed</span>
-          <span id="progress-pct">{progress}%</span>
-        </div>
         <div className="progress-bar-wrap">
           <div
             className="progress-bar-fill"
@@ -182,16 +185,6 @@ export default function App() {
           />
         </div>
       </div>
-
-      {/* Clear button */}
-      <button
-        className="clear-btn"
-        id="clear-btn"
-        onClick={clearCompleted}
-        disabled={doneCount === 0}
-      >
-        {doneCount > 0 ? `clear ${doneCount} completed` : "clear completed"}
-      </button>
 
       {/* Input row */}
       <div className="input-row">
@@ -215,7 +208,7 @@ export default function App() {
 
       {/* Task list */}
       <div className="task-list" id="task-list">
-        {sortedTasks.map((task) => (
+        {activeTasks.map((task) => (
           <div
             key={task.id}
             className={twMerge("task-item", task.done && "done")}
@@ -240,6 +233,48 @@ export default function App() {
             </button>
           </div>
         ))}
+
+        {/* Completed section */}
+        {completedTasks.length > 0 && (
+          <>
+            <div className="completed-section">
+              <span className="completed-label">completed</span>
+              <button
+                className="clear-btn"
+                id="clear-btn"
+                onClick={clearCompleted}
+                disabled={completedTasks.length === 0}
+              >
+                clear
+              </button>
+            </div>
+            {completedTasks.map((task) => (
+              <div
+                key={task.id}
+                className={twMerge("task-item", task.done && "done")}
+              >
+                <input
+                  type="checkbox"
+                  className="task-check"
+                  checked={task.done}
+                  onChange={() => toggleTask(task.id)}
+                />
+                <label
+                  className="task-label"
+                  onClick={() => toggleTask(task.id)}
+                >
+                  <span className="task-text">{task.text}</span>
+                </label>
+                <button
+                  className="del-btn"
+                  onClick={() => deleteTask(task.id)}
+                >
+                  del
+                </button>
+              </div>
+            ))}
+          </>
+        )}
       </div>
 
       {/* Empty state */}
