@@ -38,6 +38,14 @@ html {
   background-color: var(--bg);
 }
 
+html.extension-popup {
+  width: 400px !important;
+  min-width: 400px !important;
+  max-width: 400px !important;
+  height: auto;
+  min-height: 500px;
+}
+
 body {
   background-color: var(--bg);
   color: var(--text-primary);
@@ -54,6 +62,20 @@ body {
   align-items: flex-start;
   justify-content: center;
   padding: 80px 24px;
+}
+
+/* Extension popup styles */
+body.extension-popup {
+  min-width: 400px;
+  min-height: 500px;
+  max-width: 400px;
+  padding: 16px;
+  margin: 0;
+}
+
+body.extension-popup #root {
+  max-width: 100%;
+  min-height: auto;
 }
 
 #root {

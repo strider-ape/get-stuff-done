@@ -1,0 +1,31 @@
+/* Extension-specific styles that override the base styles */
+html.extension-popup,
+body.extension-popup {
+  width: 400px !important;
+  min-width: 400px !important;
+  max-width: 400px !important;
+  height: auto;
+  min-height: 500px;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html.extension-popup #root,
+body.extension-popup #root {
+  width: 100% !important;
+  max-width: 400px !important;
+  min-height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Force display properties */
+body.extension-popup {
+  display: block !important;
+  overflow: visible !important;
+}
+
+/* Reset body padding that was causing the narrow column */
+body.extension-popup {
+  padding: 0 !important;
+}
