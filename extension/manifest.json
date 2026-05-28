@@ -5,10 +5,16 @@
   "description": "A dead-simple daily checklist. No account. No cloud. No nonsense.",
   "action": {
     "default_popup": "index.html",
-    "default_icon": "icon.svg"
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
   },
   "icons": {
-    "48": "icon.svg"
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
   },
   "permissions": [],
   "host_permissions": [],

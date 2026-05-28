@@ -11,6 +11,9 @@ export default defineConfig({
       targets: [
         { src: 'extension/manifest.json', dest: 'dist-extension' },
         { src: 'icon.svg', dest: 'dist-extension' },
+        { src: 'icon16.png', dest: 'dist-extension' },
+        { src: 'icon48.png', dest: 'dist-extension' },
+        { src: 'icon128.png', dest: 'dist-extension' },
         { src: 'src/extension-overrides.css', dest: 'dist-extension' },
       ]
     })
