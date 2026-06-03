@@ -105,7 +105,7 @@ Deploy to Vercel, Netlify, or any static hosting service. It is a static site â€
 ### Self-Host
 
 ```bash
-git clone https://github.com/your-username/get-stuff-done.git
+git clone https://github.com/strider-ape/get-stuff-done.git
 cd get-stuff-done
 npm install
 npm run build
