@@ -18,6 +18,7 @@
   },
   "permissions": [],
   "host_permissions": [],
+  "data_collection_permissions": {},
   "browser_specific_settings": {
     "gecko": {
       "id": "get-stuff-done@example.com",
