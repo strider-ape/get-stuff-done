@@ -1,22 +1,35 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import { copy } from 'vite-plugin-copy'
+import { copyFileSync, mkdirSync, existsSync } from 'fs'
+import { resolve } from 'path'
+
+function copyExtensionFiles() {
+  return {
+    name: 'copy-extension-files',
+    closeBundle() {
+      const outDir = resolve(__dirname, 'dist-extension')
+      if (!existsSync(outDir)) mkdirSync(outDir, { recursive: true })
+      const files = [
+        ['extension/manifest.json', 'manifest.json'],
+        ['icon.svg', 'icon.svg'],
+        ['icon16.png', 'icon16.png'],
+        ['icon48.png', 'icon48.png'],
+        ['icon128.png', 'icon128.png'],
+        ['src/extension-overrides.css', 'extension-overrides.css'],
+      ]
+      for (const [src, dest] of files) {
+        copyFileSync(resolve(__dirname, src), resolve(outDir, dest))
+      }
+    }
+  }
+}
 
 export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    copy({
-      targets: [
-        { src: 'extension/manifest.json', dest: 'dist-extension' },
-        { src: 'icon.svg', dest: 'dist-extension' },
-        { src: 'icon16.png', dest: 'dist-extension' },
-        { src: 'icon48.png', dest: 'dist-extension' },
-        { src: 'icon128.png', dest: 'dist-extension' },
-        { src: 'src/extension-overrides.css', dest: 'dist-extension' },
-      ]
-    })
+    copyExtensionFiles(),
   ],
   publicDir: false,
   build: {
